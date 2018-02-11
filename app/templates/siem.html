@@ -1,0 +1,93 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}SIEM{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" id="navTitle">SIEM</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basic</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" >Network Setting</a></li>
+                        <li><a href="#" >Administration</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Algo</a>
+                    <ul class="dropdown-menu" role="menu">
+
+                        <li><a href="#" >Jamming Detector</a></li>
+                        <li><a href="#" >Wireless Intruder Detector</a></li>
+                        <li><a href="#" >MAC Ethspoof</a></li>
+                        <li><a href="#" >Bruteforce Login</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li id="telnet"><a href="#" >CLI</a></li>
+                        <li id="dhcps"><a href="#" >DHCP Server</a></li>
+                        <li><a href="#" >Web Server</a></li>
+                        <li id="snmp"><a href="#" >SNMP</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">System</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li id="devMaintenance"><a href="#" >Device Maintenance</a></li>
+                        <li><a href="#" >System Log</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Status</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" >System Status</a></li>
+                        <li><a href="#" >System Statistics</a></li>
+                        <li><a href="#" >Graylog Status</a></li>
+                        <li><a href="#" >Alerts Monitor</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" id="superUser" hidden>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Super User</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" >Companent Upgrade</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" id="oemUser" style="display:none;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">OEM</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" >Board Information</a></li>
+                        <li><a href="#" >Board Setup</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul id="logoutToggle" class="nav navbar-nav navbar-right hidden-xs">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="dropdown-header" id="navUser"></li>
+                        <li><a href="#" onclick="logout();">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
