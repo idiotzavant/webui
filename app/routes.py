@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template,flash,redirect,url_for
 from app.forms import LoginForm
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user,login_required
 from app.models import User
 
 @app.route('/logout')
@@ -10,6 +10,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/siem')
+@login_required
 def siem():
     return render_template('siem.html')
 
