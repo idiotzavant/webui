@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
 {% block settings %}
+    {% if not current_user.is_anonymous %}
+    <p>Welcome, {{ current_user }}</p>
+    {% else %}
     <h1>SIEM APPLIANCE</h1>
+    {% endif %}
 {% endblock %}
