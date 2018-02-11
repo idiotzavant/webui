@@ -3,4 +3,6 @@
 - source setupenv.sh
 - flask run --host 0.0.0.0
 
-# Default creds is admin/admin (stored inside sqlite app.db)
+# Default creds (stored in sqlite app.db) are the following:
+- admin/admin
+- siem/siem
