@@ -1,8 +1,217 @@
 {% extends "siem.html" %}
 
 {% block content %}
-    <form method="POST" action="" role="form">
+<form method="POST" action="/system/syslog" role="form">
     {{ form.hidden_tag() }}
+<div class="row row-content-normal">
 
+    <!-- Modal -->
+    <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="logModalLabel">Logs</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" rows="10" id="logHolder"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="download">Download</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="klogModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="klogModalLabel">Kernel Logs</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" rows="10" id="klogHolder"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="downloadklog">Download</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <h4 title="System Log">System Log</h4>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading" title="Remote Logging">Remote Logging</div>
+            <table class="table">
+                <tr>
+                    <td class="labl col-xs-5">Remote Syslog</td>
+                    <td class="val col-xs-7">
+                        <div class="col-xs-12">
+                            <select id="cfg_syslogRemoteEnable" name="cfg_syslogRemoteEnable" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Enabled or disables remote logging.">
+                                <option value="0">Disable</option>
+                                <option value="1">Enable</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_syslogRemoteIp">Syslog Server IP Address</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_syslogRemoteIp" class="form-control input-sm input-gen">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_syslogRemotePort">Syslog Server Port</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_syslogRemotePort" class="form-control input-sm input-ed">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading" title="Local Logging">Local Logging</div>
+            <table class="table">
+                <tr>
+                    <td class="labl col-xs-5">Local Syslog</td>
+                    <td class="val col-xs-7">
+                        <div class="col-xs-12">
+                            <select id="cfg_syslogLocal2Enable" name="cfg_syslogLocal2Enable" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Enabled or disabled local logging. Local logs are not preserved during a reboot.">
+                                <option value="0">Disable</option>
+                                <option value="1">Enable</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">Log Kernel Messages</td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <select id="cfg_syslogKernelLogEnable" name="cfg_syslogKernelLogEnable" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Determines whether kernel logs will be sent to syslog.">
+                                <option value="0">Disable</option>
+                                <option value="1">Enable</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">Log Level</td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <select id="cfg_syslogLoggingLevel" name="cfg_syslogLoggingLevel" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Determines logging level of syslog.">
+                                <option value="1">Emergency</option>
+                                <option value="2">Alert</option>
+                                <option value="3">Critical</option>
+                                <option value="4">Error</option>
+                                <option value="5">Warning</option>
+                                <option value="6">Notice</option>
+                                <option value="7">Information</option>
+                                <option value="8">Debug</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">Log Rotation</td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <select id="cfg_syslogLocal2RotateEnable" name="cfg_syslogLocal2RotateEnable" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Determines whether log will rotate between files or stop after the log file is full.">
+                                <option value="0">Disable</option>
+                                <option value="1">Enable</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_syslogLocal2MaxLogs">Maximum Log Size</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_syslogLocal2MaxLogs" class="form-control input-sm input-ed"
+                                   data-toggle="popover"
+                                   data-content="The maximum size of the log in kilobytes.">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_syslogLocal2LogsNum">Maximum Log Files</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_syslogLocal2LogsNum" class="form-control input-sm input-ed"
+                                   data-toggle="popover"
+                                   data-content="Maximum number of log files.  Enter a value between 1 and 10. Default is 1.">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label>Logs</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-primary" id="showLogs"  data-toggle="modal" data-target="#logModal">Show&hellip;</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label>Kernel Logs</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-primary" id="showKernelLogs"  data-toggle="modal" data-target="#klogModal">Show&hellip;</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--
+        <div class="col-sm-12">
+            <div class="btn-group pull-right fixedBtn">
+                <button type="button" class="btn btn-primary" id="update">Update</button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" id="updateApply">Update and Apply</a></li>
+                    <li><a href="#" id="updateReboot">Update and Reboot</a></li>
+                </ul>
+            </div>
+        </div>
+        -->
+        <div class="col-sm-12">
+            <div class="btn-group pull-right fixedBtn">
+                <button type="submit" class="btn btn-primary" id="update">Update</button>
+            </div>
+        </div>
+    </div>
     </form>
+</div>
 {% endblock %}

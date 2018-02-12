@@ -1,8 +1,55 @@
 {% extends "siem.html" %}
 
 {% block content %}
-    <form method="POST" action="" role="form">
-    {{ form.hidden_tag() }}
+<div class="row row-content-normal">
+    <div class="col-sm-12">
+        <h4 id="pageTitle" title="System Monitor">System Monitor</h4>
+    </div>
 
-    </form>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div id="cpuUsageLabel" class="panel-heading" title="CPU Usage">
+               Jamming attack 
+            </div>
+            <div>
+                <canvas id="cpuUsageChart" width="200" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div id="memoryUsageLabel" class="panel-heading" title="Memory Usage">
+               WLAN attack 
+            </div>
+            <div>
+                <canvas id="memoryUsageChart" width="200" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix visible-sm visible-lg visible-md"></div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div id="lanThroughputLabel" class="panel-heading" title="LAN Throughput">
+                MAC Spoofing
+            </div>
+            <div>
+                <canvas id="lanThroughputChart" width="200" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div id="wlanThroughputLabel" class="panel-heading" title="WLAN Throughput">
+               Logon failures 
+            </div>
+            <div>
+                <canvas id="wlanThroughputChart" width="200" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

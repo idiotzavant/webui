@@ -1,8 +1,50 @@
 {% extends "siem.html" %}
 
 {% block content %}
-    <form method="POST" action="" role="form">
+<div class="row row-content-normal">
+    <div class="col-sm-12">
+        <form enctype="multipart/form-data">
     {{ form.hidden_tag() }}
-
-    </form>
+            <h4 title="Component Upgrade">Component Upgrade</h4>
+            <div class="panel panel-default">
+                <div class="panel-heading" title="Component Upgrade">Component Upgrade</div>
+                <div class="panel-body" title="Component Upgrade">
+                    <h4><span class="label label-danger"><b>WARNING!</b></span> </h4>
+                    <p class="val">To prevent damage to the system DO NOT do the following during the upgrade process:</p>
+                    <li class="val">Power off or disconnect the device</li>
+                    <li class="val">Close the browser</li>
+                    <li class="val">Navigate to a different page</li>
+                </div>
+                <table class="table">
+                    <tr>
+                        <td class="labl col-xs-5">Current Docker Version</td>
+                        <td class="val col-xs-7" id="status_fwVersion"></td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Installer Version</td>
+                        <td class="val" id="status_pfVersion"></td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Upload Component</td>
+                        <td class="val">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse&hellip; <input name="file" type="file">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                                <span class="input-group-btn">
+                                    <input class="btn btn-primary" type="submit" value="Upload" />
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

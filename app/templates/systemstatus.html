@@ -1,8 +1,216 @@
 {% extends "siem.html" %}
 
 {% block content %}
-    <form method="POST" action="" role="form">
-    {{ form.hidden_tag() }}
+<div class="row row-content-normal">
+    <div class="col-sm-12">
+            <h4 title="System Status">System Status</h4>
+            <div class="panel panel-default">
+                <div class="panel-heading" title="LAN Information">LAN Information</div>
+                <table class="table">
+                    <tr>
+                        <td class="labl col-xs-5">IP Mode</td>
+                        <td class="val col-xs-7" id="status_lanIPMode"></td>
+                    </tr>
+                    <tr>
+                        <td class="labl">IP Address</td>
+                        <td class="val" id="status_lanIPAddr"></td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Subnet Mask</td>
+                        <td class="val"  id="status_lanIPMask"></td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Gateway Address</td>
+                        <td class="val"  id="status_lanIPGateway"></td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Primary DNS Address</td>
+                        <td class="val"  id="status_lanIPPriDns"></td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Secondary DNS Address</td>
+                        <td class="val" id="status_lanIPSecDns">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl" id="lanPort1Label">LAN Port</td>
+                        <td class="val" id="status_lanIPLanPort1"></td>
+                    </tr>
+                    <tr id="lanPort2Row" hidden>
+                        <td class="labl">LAN Port 2</td>
+                        <td class="val" id="status_lanIPLanPort2"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel panel-default" id="wanGroup" hidden>
+                <div class="panel-heading" id="wanTableHead" title="WAN Information">WAN Information</div>
+                <div id="wanTable">
+                    <table class="table" id="wanTableStatic">
+                        <tr>
+                            <td class="labl col-sm-5">WAN IP Mode</td>
+                            <td class="val col-sm-7" id="status_wanIPMode"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">IP Address</td>
+                            <td class="val" id="status_wanIPAddr"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Subnet Mask</td>
+                            <td class="val"id="status_wanIPMask"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Gateway Address</td>
+                            <td class="val"id="status_wanIPGateway"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Primary DNS Address</td>
+                            <td class="val"id="status_wanIPPriDns"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Secondary DNS Address</td>
+                            <td class="val"id="status_wanIPSecDns"></td>
+                        </tr>
+                    </table>
+                    <table class="table" id="wanTablePppoe">
+                        <tr>
+                            <td class="labl col-sm-5">PPPOE IP Mode</td>
+                            <td class="val col-sm-7" id="status_pppoeIpMode"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Connection Status</td>
+                            <td class="val" id="status_pppoeStatus"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">IP Address</td>
+                            <td class="val" id="status_pppoeIpAddr"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Subnet Mask</td>
+                            <td class="val" id="status_pppoeIpMask"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Gateway Address</td>
+                            <td class="val" id="status_pppoeGateway"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Primary DNS Address</td>
+                            <td class="val" id="status_pppoePriDns"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Secondary DNS Address</td>
+                            <td class="val" id="status_pppoeSecDns"></td>
+                        </tr>
+                    </table>
+                </div>
+                <table class="table" id="wanTableTail">
+                </table>
+            </div>
 
-    </form>
+            <div id="radio1status" class="panel panel-default" hidden>
+                <div class="panel-heading" title="WLAN Information">WLAN Information (Radio 1)</div>
+                <div class="panel-body no-padding">
+                    <table class="table">
+                        <tr>
+                            <td class="labl col-xs-5">Radio Mode</td>
+                            <td class="val col-xs-7" id="status_radioMode1"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl col-xs-5">MAC Address</td>
+                            <td class="val col-xs-7" id="status_wlanMac1"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Wireless Mode</td>
+                            <td class="val" id="status_wlessMode1"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Channel</td>
+                            <td class="val" id="status_radioFreq1"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">TX Power</td>
+                            <td class="val" id="status_txPower1"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Radio Channel Width</td>
+                            <td class="val" id="status_chWidth1"></td>
+                        </tr>
+                        <tr>
+                            <td class="labl">Associated Clients</td>
+                            <td class="val" id="status_assocCount1"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table id="runningVapTable1" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="val-center col-xs-1">VAP</th>
+                        <th class="val-center col-xs-3">SSID</th>
+                        <th class="val-center col-xs-2">Mode</th>
+                        <th class="val-center col-xs-3 hidden-xs">Security Policy</th>
+                        <th class="val-center col-xs-3">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">System Information</div>
+                <table class="table">
+                    <tr>
+                        <td class="labl col-xs-5">System Uptime</td>
+                        <td class="val col-xs-7" id="status_sysTime">$</td>
+                    </tr>
+                    <tr id="status_ntpEnabled">
+                        <td class="labl">System Date and Time</td>
+                        <td class="val" id="status_systemDateTime">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">System Name</td>
+                        <td class="val" id="status_sysName">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Ethernet 0 MAC Address</td>
+                        <td class="val" id="status_sysBoardEth0Mac">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Ethernet 1 MAC Address</td>
+                        <td class="val" id="status_sysBoardEth1Mac">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Bridge MAC Address</td>
+                        <td class="val" id="status_sysBoardBridgeMac">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Wireless Country Code</td>
+                        <td class="val" id="status_country"></td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Firmware Version</td>
+                        <td class="val" id="status_fwVersion">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Platform Version</td>
+                        <td class="val" id="status_pfVersion">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Model Version</td>
+                        <td class="val" id="status_custModelName">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Serial Number</td>
+                        <td class="val" id="status_hwSerialNumber">$</td>
+                    </tr>
+                    <tr>
+                        <td class="labl">Hardware Version</td>
+                        <td class="val" id="status_hwVersion">$</td>
+                    </tr>
+                </table>
+            </div>
+    </div>
+    <!-- TODO: Graphs ???
+    <div class="col-sm-4">
+    </div>
+    -->
+</div>
 {% endblock %}

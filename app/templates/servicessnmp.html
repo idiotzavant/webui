@@ -1,8 +1,231 @@
 {% extends "siem.html" %}
 
 {% block content %}
-    <form method="POST" action="" role="form">
+<form method="POST" action="/services/snmp" role="form">
     {{ form.hidden_tag() }}
-
+<div class="row row-content-normal">
+    <div class="col-sm-12">
+        <h4 title="SNMP">SNMP</h4>
+    </div>
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" title="SNMP Server">SNMP Server</div>
+            <table class="table">
+                <tr>
+                    <td class="labl col-xs-5">
+                        <label for="cfg_snmpEnable">Mode</label>
+                    </td>
+                    <td class="val col-xs-7">
+                        <div class="col-xs-12">
+                            <select id="cfg_snmpEnable" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Determines whether the device accept SNMP requests.">
+                                <option value="0">Disable</option>
+                                <option value="1">Enable</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpEngineId">Engine ID</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpEngineId" class="form-control input-sm input-gen"
+                                   data-toggle="popover"
+                                   data-content="Custom engine ID suffix. Leave blank to use the system's MAC address.">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl col-xs-5">
+                        <label for="cfg_snmpV3only">Version</label>
+                    </td>
+                    <td class="val col-xs-7">
+                        <div class="col-xs-12">
+                            <select id="cfg_snmpV3only" class="form-control input-sm input-wm"
+                                    data-toggle="popover"
+                                    data-content="Determines SNMP version to be used.">
+                                <option value="0">V1, V2c and V3</option>
+                                <option value="1">V3 Only</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl col-xs-5">
+                        <label for="cfg_snmpMd5Auth">Authentication Protocol</label>
+                    </td>
+                    <td class="val col-xs-7">
+                        <div class="col-xs-12">
+                            <select id="cfg_snmpMd5Auth" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Determines SNMPv3 authentication protocol.">
+                                <option value="0">SHA</option>
+                                <option value="1">MD5</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl col-xs-5">
+                        <label for="cfg_snmpAesPriv">Privacy Protocol</label>
+                    </td>
+                    <td class="val col-xs-7">
+                        <div class="col-xs-12">
+                            <select id="cfg_snmpAesPriv" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Determines SNMPv3 privacy protocol.">
+                                <option value="0">DES</option>
+                                <option value="1">AES</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpRwUser">Read-Write Account Username</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpRwUser" class="form-control input-sm input-gen"
+                                   data-toggle="popover"
+                                   data-content="Username that can perform GET and SET SNMP requests.">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpRwPwd">Read-Write Account Password</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpRwPwd" type="password" placeholder="Enter password to change..." class="form-control input-sm input-gen">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpRoUser">Read-Only Account Username</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpRoUser" class="form-control input-sm input-gen"
+                                   data-toggle="popover"
+                                   data-content="Username that can only perform GET SNMP requests.">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpRoPwd">Read-Only Account Password</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpRoPwd" type="password" placeholder="Enter password to change..." class="form-control input-sm input-gen">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpGetCmmty">Read Community String</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpGetCmmty" class="form-control input-sm input-gen"
+                                   data-toggle="popover"
+                                   data-content="Community string for GET operations using SNMPv1/v2c">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpSetCmmty">Write Community String</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpSetCmmty" class="form-control input-sm input-gen"
+                                   data-toggle="popover"
+                                   data-content="Community string for SET operations using SNMPv1/v2c">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpTrapCmmty">Trap Community String</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpTrapCmmty" class="form-control input-sm input-gen"
+                                   data-toggle="popover"
+                                   data-content="Community string for SNMP traps.">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpTrapRecvIp1">Trap Receiver 1 IP Address</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpTrapRecvIp1" class="form-control input-sm input-gen">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpTrapRecvIp2">Trap Receiver 2 IP Address</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpTrapRecvIp2" class="form-control input-sm input-gen">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpTrapRecvIp3">Trap Receiver 3 IP Address</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpTrapRecvIp3" class="form-control input-sm input-gen">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl">
+                        <label for="cfg_snmpTrapRecvIp4">Trap Receiver 4 IP Address</label>
+                    </td>
+                    <td class="val">
+                        <div class="col-xs-12">
+                            <input id="cfg_snmpTrapRecvIp4" class="form-control input-sm input-gen">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labl col-xs-5">
+                        <label for="cfg_snmpSendV1Traps">SNMP Trap Version</label>
+                    </td>
+                    <td class="val col-xs-7">
+                        <div class="col-xs-12">
+                            <select id="cfg_snmpSendV1Traps" class="form-control input-sm input-ed"
+                                    data-toggle="popover"
+                                    data-content="Determines the SNMP version of the trap sent by the device.">
+                                <option value="0">SNMPv3</option>
+                                <option value="1">SNMPv1</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="btn-group pull-right fixedBtn">
+            <button type="submit" class="btn btn-primary" id="update">Update</button>
+        </div>
+    </div>
     </form>
+</div>
 {% endblock %}

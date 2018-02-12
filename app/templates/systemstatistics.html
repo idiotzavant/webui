@@ -1,8 +1,95 @@
 {% extends "siem.html" %}
 
 {% block content %}
-    <form method="POST" action="" role="form">
-    {{ form.hidden_tag() }}
+<div class="row row-content-normal">
+    <div class="col-sm-12">
+            <h4 title="Interface Statistics">Interface Statistics</h4>
+            <div class="panel panel-default">
+                <div class="panel-heading">Ethernet Statistics</div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th class="val-center">Kilobytes</th>
+                        <th class="val-center">Rate (KBps)</th>
+                        <th class="val-center">Packets</th>
+                        <th class="val-center hidden-xs">Errors</th>
+                        <th class="val-center hidden-xs">Drops</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="val-center">TX</td>
+                        <td class="val-center" id="status_statEthTxBytes">1</td>
+                        <td class="val-center" id="status_statEthTxRate">2</td>
+                        <td class="val-center" id="status_statEthTxPkt">3</td>
+                        <td class="val-center hidden-xs" id="status_statEthTxErr">4</td>
+                        <td class="val-center hidden-xs" id="status_statEthTxDrop">5</td>
+                    </tr>
+                    <tr>
+                        <td class="val-center">RX</td>
+                        <td class="val-center" id="status_statEthRxBytes">6</td>
+                        <td class="val-center" id="status_statEthRxRate">7</td>
+                        <td class="val-center" id="status_statEthRxPkt">8</td>
+                        <td class="val-center hidden-xs" id="status_statEthRxErr">9</td>
+                        <td class="val-center hidden-xs" id="status_statEthRxDrop">10</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    </form>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Wireless Statistics</div>
+                <!-- Table -->
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th class="val-center">Kilobytes</th>
+                        <th class="val-center">Rate (KBps)</th>
+                        <th class="val-center">Packets</th>
+                        <th class="val-center hidden-xs">Errors</th>
+                        <th class="val-center hidden-xs">Drops</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="val-center">TX</td>
+                        <td class="val-center" id="status_statWlanTxBytes">1</td>
+                        <td class="val-center" id="status_statWlanTxRate">2</td>
+                        <td class="val-center" id="status_statWlanTxPkt">3</td>
+                        <td class="val-center hidden-xs" id="status_statWlanTxErr">4</td>
+                        <td class="val-center hidden-xs" id="status_statWlanTxDrop">5</td>
+                    </tr>
+                    <tr>
+                        <td class="val-center">RX</td>
+                        <td class="val-center" id="status_statWlanRxBytes">6</td>
+                        <td class="val-center" id="status_statWlanRxRate">7</td>
+                        <td class="val-center" id="status_statWlanRxPkt">8</td>
+                        <td class="val-center hidden-xs" id="status_statWlanRxErr">9</td>
+                        <td class="val-center hidden-xs" id="status_statWlanRxDrop">10</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="btn-group pull-right fixedBtn">
+                    <button type="button" class="btn btn-warning" id="refresh">Refresh</button>
+                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" name="1">Refresh Every 1s</a></li>
+                        <li><a href="#" name="3">Refresh Every 3s</a></li>
+                        <li><a href="#" name="5">Refresh Every 5s</a></li>
+                        <li><a href="#" name="10">Refresh Every 10s</a></li>
+                        <li><a href="#" name="30">Refresh Every 30s</a></li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+</div>
 {% endblock %}
