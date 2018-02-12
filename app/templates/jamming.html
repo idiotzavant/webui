@@ -1,0 +1,24 @@
+{% extends "siem.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+
+        <h4 title="Jamming">Jamming</h4>
+        <div class="panel panel-default">
+            <div class="panel-heading" title="Jamming Parameter">Jamming Parameter</div>
+            <table class="table">
+                <tr>
+                    <td class="labl col-xs-5">
+                        <label for="cfg_lanIpMode">{{ form.timeout.label }}</label>
+                    </td>
+                    <td class="val col-xs-7">
+                        <div class="col-xs-12">{{ form.timeout() }}</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

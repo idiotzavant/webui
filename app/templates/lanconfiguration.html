@@ -22,6 +22,9 @@
                     </td>
                     <td class="val">
                         <div class="col-xs-12">{{ form.ip_address(maxlength=15) }}</div>
+                        {% for error in form.ip_address.errors %}
+                        <span style="color:red;">[{{ error }}]</span>
+                        {% endfor %}
                     </td>
                 </tr>
                 <tr>
@@ -30,6 +33,9 @@
                     </td>
                     <td class="val">
                         <div class="col-xs-12 has-error">{{ form.subnet_mask(maxlength=15) }}</div>
+                        {% for error in form.subnet_mask.errors %}
+                        <span style="color:red;">[{{ error }}]</span>
+                        {% endfor %}
                     </td>
                 </tr>
                 <tr>
@@ -38,6 +44,9 @@
                     </td>
                     <td class="val">
                         <div class="col-xs-12 has-error">{{ form.default_gateway_address(maxlength=15) }}</div>
+                        {% for error in form.default_gateway_address.errors %}
+                        <span style="color:red;">[{{ error }}]</span>
+                        {% endfor %}
                     </td>
                 </tr>
                 <tr>
@@ -46,6 +55,9 @@
                     </td>
                     <td class="val">
                         <div class="col-xs-12 has-error">{{ form.primary_dns_ip_address(maxlength=15) }}</div>
+                        {% for error in form.primary_dns_ip_address.errors %}
+                        <span style="color:red;">[{{ error }}]</span>
+                        {% endfor %}
                     </td>
                 </tr>
                 <tr>
@@ -54,6 +66,9 @@
                     </td>
                     <td class="val">
                         <div class="col-xs-12 has-error">{{ form.secondary_dns_ip_address(maxlength=15) }}</div>
+                        {% for error in form.secondary_dns_ip_address.errors %}
+                        <span style="color:red;">[{{ error }}]</span>
+                        {% endfor %}
                     </td>
                 </tr>
             </table>
