@@ -81,6 +81,8 @@ def services(submenu):
 
         if form.validate_on_submit(): 
             print("SSH PORT = " + form.ssh_port.data)
+            print("clish_mode = " + form.clish_mode.data)
+            print("ssh_mode = " + form.ssh_mode.data)
             return redirect(url_for('siem'))    
         return render_template('servicescli.html',form=form)
     elif submenu == 'dhcp':
