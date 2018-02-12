@@ -152,7 +152,7 @@ def logout():
 @app.route('/siem')
 @login_required
 def siem():
-    return render_template('siem.html')
+    return render_template('siem.html' if current_user.username == 'admin' else 'siemuser.html')
 
 @app.route('/login',methods=['GET','POST'])
 def login():
