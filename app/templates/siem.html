@@ -19,7 +19,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basic</a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" >Network Setting</a></li>
+                        <li><a href="/basic/networksetting" >Network Setting</a></li>
                         <li><a href="#" >Administration</a></li>
                     </ul>
                 </li>
@@ -94,4 +94,15 @@
 
 {% block content %}
     <p>Welcome, <b>{{ current_user }}</b></p>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
 {% endblock %}

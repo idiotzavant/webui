@@ -1,9 +1,21 @@
 from app import app
 from flask import render_template,flash,redirect,url_for,request
-from app.forms import LoginForm
+from app.forms import LoginForm,LANConfiguration
 from flask_login import current_user, login_user, logout_user,login_required
 from app.models import User
 from werkzeug.urls import url_parse
+
+######################################################
+@app.route('/basic/networksetting',methods=['GET','POST'])
+def basic_networksetting():
+    form = LANConfiguration()
+    if form.validate_on_submit():
+        flash("success network settings")
+        print("ip_address = {}".format(form.ip_address.data))
+        return redirect(url_for('siem'))
+    return render_template('lanconfiguration.html',form=form)
+
+######################################################
 
 @app.route('/logout')
 def logout():
