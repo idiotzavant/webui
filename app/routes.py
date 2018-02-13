@@ -1,4 +1,5 @@
-from app import app
+import subprocess
+from app import app,redis_store
 from flask import render_template,flash,redirect,url_for,request
 from flask_login import current_user, login_user, logout_user,login_required
 from app.models import User
@@ -22,6 +23,7 @@ from app.forms import \
     AlertsMonitor,\
     ComponentUpgrade,\
     SystemLog
+import myscriptutils as scriptutils
 
 ######################################################
 @app.route('/basic/<submenu>',methods=['GET','POST'])
@@ -29,15 +31,51 @@ def basic(submenu):
     print("* " + submenu)
     if submenu == 'networksetting':
         form = LANConfiguration()
+        ip_mode = scriptutils.get_ip_mode()
+        ip_addr = scriptutils.get_ipaddr()
+        subnet_mask = scriptutils.get_subnet_mask()
+        default_gwaddr = scriptutils.get_defaultgwaddr()
+        dnsservers = scriptutils.get_dnsservers()
+
+        if request.method == 'GET':
+	    form.ip_mode.default = 1 if ip_mode == 'static' else 2 
+	    form.ip_address.default = ip_addr
+            form.subnet_mask.default = subnet_mask
+            form.default_gateway_address.default = default_gwaddr
+            form.primary_dns_ip_address.default = dnsservers[0]
+            form.secondary_dns_ip_address.default = dnsservers[1] if len(dnsservers)==2 else ''
+	    form.process()
+
         if form.validate_on_submit():
             flash("success network settings")
             print("ip_address = {}".format(form.ip_address.data))
+
+            ip_mode = form.ip_mode.data
+            if ip_mode == '1':
+                print("setting for static networking")
+                ipaddr = form.ip_address.data
+                subnet = form.subnet_mask.data
+                gw = form.default_gateway_address.data
+                dns1 = form.primary_dns_ip_address.data
+                dns2 = form.secondary_dns_ip_address.data
+		scriptutils.do_staticnetworking(ipaddr,subnet,gw,dns1,dns2)
+
             return redirect(url_for('siem'))
         return render_template('lanconfiguration.html',form=form)
     elif submenu == 'administration':
         form = SystemInformation()
+
+        if request.method == 'GET':
+            form.system_contact.default = redis_store.get('agent:syscontact')
+            form.system_location.default = redis_store.get('agent:syslocation')
+            form.ro_commstring.default = redis_store.get('agent:rocommunity')
+            form.process()
+
         if form.validate_on_submit():
             flash("success sys administration settings")
+            redis_store.set('agent:syscontact',form.system_contact.data)
+            redis_store.set('agent:syslocation',form.system_location.data)
+            redis_store.set('agent:rocommunity',form.ro_commstring.data)
             return redirect(url_for('siem'))
         return render_template('systeminformation.html',form=form)
 
@@ -45,25 +83,50 @@ def basic(submenu):
 def algo(submenu):
     if submenu == 'jamming':
         form = Jamming()
+        if request.method == 'GET':
+            form.timeout.default = redis_store.get('algo:JammingEventTimeout')
+            form.process()
         if form.validate_on_submit():
             flash("success jamming settings")
+            redis_store.set('algo:JammingEventTimeout',form.timeout.data)
             return redirect(url_for('siem'))
         return render_template('jamming.html',form=form)
     elif submenu == 'wlanattack':
         form = WLANAttack()
+        if request.method == 'GET':
+            form.timeout.default = redis_store.get('algo:WlanAttackEventTimeout')
+            form.process()
         if form.validate_on_submit():
+            redis_store.set('algo:WlanAttackEventTimeout',form.timeout.data)
             flash("success WLAN ATtack settings")
             return redirect(url_for('siem'))
         return render_template('wlanattack.html',form=form)
     elif submenu == 'bruteforcelogin':
         form = BruteForceLogin()
+        if request.method == 'GET':
+            form.timeout.default = redis_store.get('algo:BruteForceLoginEventTimeout')
+            form.duration.default = redis_store.get('algo:BruteForceLoginWindow')
+            form.count.default = redis_store.get('algo:BruteForceLoginThd')
+            form.process()
         if form.validate_on_submit():
+            redis_store.set('algo:BruteForceLoginEventTimeout',form.timeout.data)
+            redis_store.set('algo:BruteForceLoginWindow',form.duration.data)
+            redis_store.set('algo:BruteForceLoginThd',form.count.data)
+            form.process()
             flash("success Brute Force Login settings")
             return redirect(url_for('siem'))
         return render_template('bruteforcelogin.html',form=form)
     elif submenu == 'radiuslogin':
         form = RadiusLogin()
+        if request.method == 'GET':
+            form.timeout.default = redis_store.get('algo:RadiusLoginEventTimeout')
+            form.duration.default = redis_store.get('algo:RadiusLoginWindow')
+            form.count.default = redis_store.get('algo:RadiusLoginThd')
+            form.process()
         if form.validate_on_submit():
+            redis_store.set('algo:RadiusLoginEventTimeout',form.timeout.data)
+            redis_store.set('algo:RadiusLoginWindow',form.duration.data)
+            redis_store.set('algo:RadiusLoginThd',form.count.data)
             flash("success Radius Login settings")
             return redirect(url_for('siem'))
         return render_template('radiuslogin.html',form=form)

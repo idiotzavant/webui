@@ -16,11 +16,11 @@ class LoginForm(FlaskForm):
 class LANConfiguration(FlaskForm):
     my_choices = [('1', 'Static IP'), ('2', 'Dynamic IP (DHCP)')]
     ip_mode = SelectField('IP Mode',choices = my_choices)
-    ip_address  = StringField(u'IP Address', validators=[DataRequired(),IPAddress()])
-    subnet_mask  = StringField(u'Subnet Mask', validators=[DataRequired(),IPAddress()])
-    default_gateway_address  = StringField(u'Default Gateway Address', validators=[DataRequired(),IPAddress()])
-    primary_dns_ip_address  = StringField(u'Primary DNS IP Address', validators=[DataRequired(),IPAddress()])
-    secondary_dns_ip_address  = StringField(u'Secondary DNS IP Address', validators=[DataRequired(),IPAddress()])
+    ip_address  = StringField(u'IP Address', validators=[IPAddress()])
+    subnet_mask  = StringField(u'Subnet Mask', validators=[IPAddress()])
+    default_gateway_address  = StringField(u'Default Gateway Address', validators=[IPAddress()])
+    primary_dns_ip_address  = StringField(u'Primary DNS IP Address', validators=[IPAddress()])
+    secondary_dns_ip_address  = StringField(u'Secondary DNS IP Address', validators=[IPAddress()])
     submit = SubmitField('Update')
 
 class SystemInformation(FlaskForm):
@@ -28,6 +28,7 @@ class SystemInformation(FlaskForm):
     system_location  = StringField('System Location', validators=[])
     system_name  = StringField('System Name', validators=[])
     serial_number  = StringField('Serial Number', validators=[])
+    ro_commstring  = StringField('RO Community String', validators=[])
     submit = SubmitField('Update')
 
 class Jamming(FlaskForm):

@@ -26,18 +26,10 @@
                 </tr>
                 <tr>
                     <td class="labl">
-                        <label for="cfg_lanSubnetMask">{{ form.system_name.label }}</label>
+                        <label for="cfg_lanSubnetMask">Read-Only Community String</label>
                     </td>
                     <td class="val">
-                        <div class="col-xs-12 has-error">{{ form.system_name(maxlength=64) }}</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="labl">
-                        <label for="cfg_lanSubnetMask">{{ form.serial_number.label }}</label>
-                    </td>
-                    <td class="val">
-                        <div class="col-xs-12 has-error">{{ form.serial_number(maxlength=64) }}</div>
+                        <div class="col-xs-12 has-error">{{ form.ro_commstring(maxlength=64) }}</div>
                     </td>
                 </tr>
             </table>
