@@ -73,9 +73,18 @@ def basic(submenu):
 
         if form.validate_on_submit():
             flash("success sys administration settings")
-            redis_store.set('agent:syscontact',form.system_contact.data)
-            redis_store.set('agent:syslocation',form.system_location.data)
-            redis_store.set('agent:rocommunity',form.ro_commstring.data)
+            prev_sc = form.system_contact.default = redis_store.get('ugent:syscontact')
+            prev_sl = form.system_location.default = redis_store.get('agent:syslocation')
+            prev_ro = form.ro_commstring.default = redis_store.get('agent:rocommunity')
+            if prev_sc != form.system_contact.data:
+                redis_store.set('agent:syscontact',form.system_contact.data)
+                redis_store.publish('agent','agent:syscontact')
+            if prev_sl != form.system_location.data:
+                redis_store.set('agent:syslocation',form.system_location.data)
+                redis_store.publish('agent','agent:syslocation')
+            if prev_ro != form.ro_commstring.data:
+                redis_store.set('agent:rocommunity',form.ro_commstring.data)
+                redis_store.publish('agent','agent:rocommunity')
             return redirect(url_for('siem'))
         return render_template('systeminformation.html',form=form)
 
@@ -88,7 +97,10 @@ def algo(submenu):
             form.process()
         if form.validate_on_submit():
             flash("success jamming settings")
-            redis_store.set('algo:JammingEventTimeout',form.timeout.data)
+            previous = redis_store.get('algo:JammingEventTimeout')
+            if previous != form.timeout.data:
+                redis_store.set('algo:JammingEventTimeout',form.timeout.data)
+                redis_store.publish('algo','algo:JammingEventTimeout')
             return redirect(url_for('siem'))
         return render_template('jamming.html',form=form)
     elif submenu == 'wlanattack':
@@ -97,7 +109,10 @@ def algo(submenu):
             form.timeout.default = redis_store.get('algo:WlanAttackEventTimeout')
             form.process()
         if form.validate_on_submit():
-            redis_store.set('algo:WlanAttackEventTimeout',form.timeout.data)
+            previous = redis_store.get('algo:WlanAttackEventTimeout')
+            if previous != form.timeout.data:
+                redis_store.set('algo:WlanAttackEventTimeout',form.timeout.data)
+                redis_store.publish('algo','algo:WlanAttackEventTimeout')
             flash("success WLAN ATtack settings")
             return redirect(url_for('siem'))
         return render_template('wlanattack.html',form=form)
@@ -109,10 +124,19 @@ def algo(submenu):
             form.count.default = redis_store.get('algo:BruteForceLoginThd')
             form.process()
         if form.validate_on_submit():
-            redis_store.set('algo:BruteForceLoginEventTimeout',form.timeout.data)
-            redis_store.set('algo:BruteForceLoginWindow',form.duration.data)
-            redis_store.set('algo:BruteForceLoginThd',form.count.data)
-            form.process()
+            previous_to = redis_store.get('algo:BruteForceLoginEventTimeout')
+            previous_win = redis_store.get('algo:BruteForceLoginWindow')
+            previous_thd = redis_store.get('algo:BruteForceLoginThd')
+            if previous_to != form.timeout.data:
+                redis_store.set('algo:BruteForceLoginEventTimeout',form.timeout.data)
+                redis_store.publish('algo','algo:BruteForceLoginEventTimeout')
+            if previous_win != form.duration.data:
+                redis_store.set('algo:BruteForceLoginWindow',form.duration.data)
+                redis_store.publish('algo','algo:BruteForceLoginWindow')
+            if previous_thd != form.count.data:
+                redis_store.set('algo:BruteForceLoginThd',form.count.data)
+                redis_store.publish('algo','algo:BruteForceLoginThd')
+            #form.process()
             flash("success Brute Force Login settings")
             return redirect(url_for('siem'))
         return render_template('bruteforcelogin.html',form=form)
@@ -124,9 +148,19 @@ def algo(submenu):
             form.count.default = redis_store.get('algo:RadiusLoginThd')
             form.process()
         if form.validate_on_submit():
-            redis_store.set('algo:RadiusLoginEventTimeout',form.timeout.data)
-            redis_store.set('algo:RadiusLoginWindow',form.duration.data)
-            redis_store.set('algo:RadiusLoginThd',form.count.data)
+            previous_to = redis_store.get('algo:RadiusLoginEventTimeout')
+            previous_win = redis_store.get('algo:RadiusLoginWindow')
+            previous_thd = redis_store.get('algo:RadiusLoginThd')
+
+            if previous_to != form.timeout.data:
+                redis_store.set('algo:RadiusLoginEventTimeout',form.timeout.data)
+                redis_store.publish('algo','algo:RadiusLoginEventTimeout')
+            if previous_win != form.duration.data:
+                redis_store.set('algo:RadiusLoginWindow',form.duration.data)
+                redis_store.publish('algo','algo:RadiusLoginWindow')
+            if previous_thd != form.count.data:
+                redis_store.set('algo:RadiusLoginThd',form.count.data)
+                redis_store.publish('algo','algo:RadiusLoginThd')
             flash("success Radius Login settings")
             return redirect(url_for('siem'))
         return render_template('radiuslogin.html',form=form)
