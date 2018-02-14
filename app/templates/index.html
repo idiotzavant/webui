@@ -2,8 +2,8 @@
 
 {% block settings %}
     {% if not current_user.is_anonymous %}
-    <p>Welcome, {{ current_user }}</p>
+    <div align="center"><p>Welcome, {{ current_user }}</p></div>
     {% else %}
-    <h1>SIEM APPLIANCE</h1>
+    <div align="center"><h1>SIEM APPLIANCE</h1></div>
     {% endif %}
 {% endblock %}
