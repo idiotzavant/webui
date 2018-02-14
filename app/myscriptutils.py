@@ -10,7 +10,7 @@ def get_ip_mode():
     proc = subprocess.Popen(['/home/siem/webui/scripts/get_ip_mode.sh'],stdout=subprocess.PIPE)
     x = list(proc.stdout)
     ret = x[0].strip()
-    return 2
+    return ret
 
 def get_ipaddr():
     proc = subprocess.Popen(['/home/siem/webui/scripts/get_ipaddr.sh'],stdout=subprocess.PIPE)
@@ -35,3 +35,17 @@ def get_dnsservers():
     x = list(proc.stdout)
     ret = x[0].strip()
     return ret.split(' ')
+
+def uptime():  
+    with open('/proc/uptime', 'r') as f:
+        uptime_seconds = float(f.readline().split()[0])
+        return '{} seconds'.format(uptime_seconds)
+
+def get_mac_address_of(eth):
+    try:
+        proc = subprocess.Popen(['/home/siem/webui/scripts/get_mac_address_of.sh',eth],stdout=subprocess.PIPE)
+        x = list(proc.stdout)
+        ret = x[0].strip()
+        return ret
+    except:
+        return "not found"

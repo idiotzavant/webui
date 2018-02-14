@@ -3,6 +3,7 @@
 {% block content %}
 <form method="POST" action="" role="form">
     {{ form.hidden_tag() }}
+    <div>
     <div class="row row-content-normal">
         <div class="col-sm-12">
             <h4 title="CLI">CLI</h4>
@@ -45,13 +46,7 @@
                 </table>
             </div>
         </div>
-        <!--
-        <div class="col-sm-12">
-            <div class="btn-group pull-right fixedBtn">
-                <button type="submit" class="btn btn-primary" id="update">Update</button>
-            </div>
-        </div>
-        -->
+       </div>
         <p>{{ form.submit(class_="btn btn-primary") }}</p>
     </form>
 </div>

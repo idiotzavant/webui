@@ -1,4 +1,5 @@
-import subprocess
+import datetime
+import socket
 from app import app,redis_store
 from flask import render_template,flash,redirect,url_for,request
 from flask_login import current_user, login_user, logout_user,login_required
@@ -38,6 +39,7 @@ def basic(submenu):
         dnsservers = scriptutils.get_dnsservers()
 
         if request.method == 'GET':
+            print("ip_mode = {}".format(ip_mode))
 	    form.ip_mode.default = 1 if ip_mode == 'static' else 2 
 	    form.ip_address.default = ip_addr
             form.subnet_mask.default = subnet_mask
@@ -215,6 +217,22 @@ def system(submenu):
 def status(submenu):
     if submenu == 'systemstatus':
         form = SystemStatus()
+
+        if request.method == 'GET':
+            form.ip_mode = scriptutils.get_ip_mode()
+            form.ip_address = scriptutils.get_ipaddr()
+            form.subnet_mask = scriptutils.get_subnet_mask()
+            form.gateway_address = scriptutils.get_defaultgwaddr()
+            dnsservers = scriptutils.get_dnsservers()
+            form.primary_dns_address = dnsservers[0]
+            form.secondary_dns_address = dnsservers[1]
+            form.system_uptime = scriptutils.uptime()
+            form.system_date_and_time = datetime.datetime.now()
+            form.system_name = socket.gethostname()
+            form.ethernet_0_mac_address = scriptutils.get_mac_address_of('enp0s3')
+            form.ethernet_1_mac_address = scriptutils.get_mac_address_of('enp0s8')
+            form.software_version = '0.0.1'
+
         if form.validate_on_submit():
             return redirect(url_for('siem'))
         return render_template('systemstatus.html',form=form)

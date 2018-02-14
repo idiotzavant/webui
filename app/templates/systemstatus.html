@@ -9,31 +9,27 @@
                 <table class="table">
                     <tr>
                         <td class="labl col-xs-5">IP Mode</td>
-                        <td class="val col-xs-7" id="status_lanIPMode"></td>
+                        <td class="val col-xs-7" id="status_lanIPMode">{{ form.ip_mode }}</td>
                     </tr>
                     <tr>
                         <td class="labl">IP Address</td>
-                        <td class="val" id="status_lanIPAddr"></td>
+                        <td class="val" id="status_lanIPAddr">{{ form.ip_address }}</td>
                     </tr>
                     <tr>
                         <td class="labl">Subnet Mask</td>
-                        <td class="val"  id="status_lanIPMask"></td>
+                        <td class="val"  id="status_lanIPMask">{{ form.subnet_mask }}</td>
                     </tr>
                     <tr>
                         <td class="labl">Gateway Address</td>
-                        <td class="val"  id="status_lanIPGateway"></td>
+                        <td class="val"  id="status_lanIPGateway">{{ form.gateway_address }}</td>
                     </tr>
                     <tr>
                         <td class="labl">Primary DNS Address</td>
-                        <td class="val"  id="status_lanIPPriDns"></td>
+                        <td class="val"  id="status_lanIPPriDns">{{ form.primary_dns_address }}</td>
                     </tr>
                     <tr>
                         <td class="labl">Secondary DNS Address</td>
-                        <td class="val" id="status_lanIPSecDns">$</td>
-                    </tr>
-                    <tr>
-                        <td class="labl" id="lanPort1Label">LAN Port</td>
-                        <td class="val" id="status_lanIPLanPort1"></td>
+                        <td class="val" id="status_lanIPSecDns">{{ form.secondary_dns_address }}</td>
                     </tr>
                     <tr id="lanPort2Row" hidden>
                         <td class="labl">LAN Port 2</td>
@@ -159,51 +155,27 @@
                 <table class="table">
                     <tr>
                         <td class="labl col-xs-5">System Uptime</td>
-                        <td class="val col-xs-7" id="status_sysTime">$</td>
+                        <td class="val col-xs-7" id="status_sysTime">{{ form.system_uptime }}</td>
                     </tr>
                     <tr id="status_ntpEnabled">
                         <td class="labl">System Date and Time</td>
-                        <td class="val" id="status_systemDateTime">$</td>
+                        <td class="val" id="status_systemDateTime">{{ form.system_date_and_time }}</td>
                     </tr>
                     <tr>
                         <td class="labl">System Name</td>
-                        <td class="val" id="status_sysName">$</td>
+                        <td class="val" id="status_sysName">{{ form.system_name }}</td>
                     </tr>
                     <tr>
                         <td class="labl">Ethernet 0 MAC Address</td>
-                        <td class="val" id="status_sysBoardEth0Mac">$</td>
+                        <td class="val" id="status_sysBoardEth0Mac">{{ form.ethernet_0_mac_address }}</td>
                     </tr>
                     <tr>
                         <td class="labl">Ethernet 1 MAC Address</td>
-                        <td class="val" id="status_sysBoardEth1Mac">$</td>
+                        <td class="val" id="status_sysBoardEth1Mac">{{ form.ethernet_1_mac_address }}</td>
                     </tr>
                     <tr>
-                        <td class="labl">Bridge MAC Address</td>
-                        <td class="val" id="status_sysBoardBridgeMac">$</td>
-                    </tr>
-                    <tr>
-                        <td class="labl">Wireless Country Code</td>
-                        <td class="val" id="status_country"></td>
-                    </tr>
-                    <tr>
-                        <td class="labl">Firmware Version</td>
-                        <td class="val" id="status_fwVersion">$</td>
-                    </tr>
-                    <tr>
-                        <td class="labl">Platform Version</td>
-                        <td class="val" id="status_pfVersion">$</td>
-                    </tr>
-                    <tr>
-                        <td class="labl">Model Version</td>
-                        <td class="val" id="status_custModelName">$</td>
-                    </tr>
-                    <tr>
-                        <td class="labl">Serial Number</td>
-                        <td class="val" id="status_hwSerialNumber">$</td>
-                    </tr>
-                    <tr>
-                        <td class="labl">Hardware Version</td>
-                        <td class="val" id="status_hwVersion">$</td>
+                        <td class="labl">Software Version</td>
+                        <td class="val" id="status_fwVersion">{{ form.software_version }}</td>
                     </tr>
                 </table>
             </div>
