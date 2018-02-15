@@ -1,11 +1,11 @@
 {% extends "siem.html" %}
 
 {% block content %}
-<div class="row row-content-normal">
+<div class="row row-content-normal" style="margin: 0 auto;width: 800px">
     <div class="col-sm-12">
-            <h4 title="Interface Statistics">Interface Statistics</h4>
+            <h4 title="Event Statistics">Events Statistics</h4>
             <div class="panel panel-default">
-                <div class="panel-heading">Ethernet Statistics</div>
+                <div class="panel-heading">Jamming Statistics</div>
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
@@ -26,21 +26,13 @@
                         <td class="val-center hidden-xs" id="status_statEthTxErr">4</td>
                         <td class="val-center hidden-xs" id="status_statEthTxDrop">5</td>
                     </tr>
-                    <tr>
-                        <td class="val-center">RX</td>
-                        <td class="val-center" id="status_statEthRxBytes">6</td>
-                        <td class="val-center" id="status_statEthRxRate">7</td>
-                        <td class="val-center" id="status_statEthRxPkt">8</td>
-                        <td class="val-center hidden-xs" id="status_statEthRxErr">9</td>
-                        <td class="val-center hidden-xs" id="status_statEthRxDrop">10</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Wireless Statistics</div>
+                <div class="panel-heading">WLAN Attack Statistics</div>
                 <!-- Table -->
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -62,13 +54,57 @@
                         <td class="val-center hidden-xs" id="status_statWlanTxErr">4</td>
                         <td class="val-center hidden-xs" id="status_statWlanTxDrop">5</td>
                     </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Brute Force Login Statistics</div>
+                <table class="table table-bordered table-hover">
+                    <thead>
                     <tr>
-                        <td class="val-center">RX</td>
-                        <td class="val-center" id="status_statWlanRxBytes">6</td>
-                        <td class="val-center" id="status_statWlanRxRate">7</td>
-                        <td class="val-center" id="status_statWlanRxPkt">8</td>
-                        <td class="val-center hidden-xs" id="status_statWlanRxErr">9</td>
-                        <td class="val-center hidden-xs" id="status_statWlanRxDrop">10</td>
+                        <th></th>
+                        <th class="val-center">Kilobytes</th>
+                        <th class="val-center">Rate (KBps)</th>
+                        <th class="val-center">Packets</th>
+                        <th class="val-center hidden-xs">Errors</th>
+                        <th class="val-center hidden-xs">Drops</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="val-center">TX</td>
+                        <td class="val-center" id="status_statEthTxBytes">1</td>
+                        <td class="val-center" id="status_statEthTxRate">2</td>
+                        <td class="val-center" id="status_statEthTxPkt">3</td>
+                        <td class="val-center hidden-xs" id="status_statEthTxErr">4</td>
+                        <td class="val-center hidden-xs" id="status_statEthTxDrop">5</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Radius Login Statistics</div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th class="val-center">Kilobytes</th>
+                        <th class="val-center">Rate (KBps)</th>
+                        <th class="val-center">Packets</th>
+                        <th class="val-center hidden-xs">Errors</th>
+                        <th class="val-center hidden-xs">Drops</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="val-center">TX</td>
+                        <td class="val-center" id="status_statEthTxBytes">1</td>
+                        <td class="val-center" id="status_statEthTxRate">2</td>
+                        <td class="val-center" id="status_statEthTxPkt">3</td>
+                        <td class="val-center hidden-xs" id="status_statEthTxErr">4</td>
+                        <td class="val-center hidden-xs" id="status_statEthTxDrop">5</td>
                     </tr>
                     </tbody>
                 </table>
